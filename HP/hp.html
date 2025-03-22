@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открытка</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        .card.open .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+        }
+        .card-front {
+            background: url('a.jpg') no-repeat center/cover;
+        }
+        .card-back {
+            background: url('op.jpg') no-repeat center/cover;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <audio id="card-music" src="audio.mp3"></audio>
+    <div class="card" onclick="toggleCard()">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard() {
+            let card = document.querySelector('.card');
+            let music = document.getElementById('card-music');
+            
+            card.classList.toggle('open');
+            if (card.classList.contains('open')) {
+                music.play();
+            } else {
+                music.pause();
+                music.currentTime = 0;
+            }
+        }
+    </script>
+</body>
+</html>
